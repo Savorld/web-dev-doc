@@ -5,6 +5,7 @@
 ## Python
 
 * [语言特性](python/yu-yan-te-xing.md)
+* [最佳实践](python/zui-jia-shi-jian.md)
 
 ## 数据库
 
