@@ -1,12 +1,10 @@
-# 最佳实践
-
-## 代码风格
+# 代码风格
 
 > 代码的阅读比编写更加频繁，高度的可读性是Python语言的设计核心。
 >
 > 当一名经验丰富的Python开发者（Pythonista）认为某段代码不 “Pythonic”时， 那么这段代码可能没有遵循通用的指导方针，也没有用最佳的（最可读的）方式来表达意图。
 
-### 简单直接
+## 简单直接
 
 ```python
 def make_complex(*args):
@@ -21,7 +19,7 @@ def make_complex(x, y):
     return {'x': x, 'y': y}
 ```
 
-### 每行一个声明
+## 每行一个声明
 
 ```python
 print 'one'; print 'two'
@@ -47,7 +45,7 @@ if cond1 and cond2:
     # do something
 ```
 
-### 函数参数
+## 函数参数
 
 有四种方式给函数传参：
 
@@ -124,7 +122,7 @@ send('hello', to='bob', cc='God')
 这些传参方式的顺序是由简到繁，为了让代码更加易读易改，尽量使用简单的传参方式。
 {% endhint %}
 
-### 避免魔法方法
+## 避免魔法方法
 
 你或许应该知道Python提供了哪些魔法能让你达成各种目的，比如，它可以：
 
@@ -134,13 +132,13 @@ send('hello', to='bob', cc='God')
 
 然而，这样做会降低代码可读性，许多代码分析工具也可能无法理解这些“魔法”，所以尽量使用更加直接的方式完成你的需求。
 
-### 私有属性的约定
+## 私有属性的约定
 
 Python和高度防御性的语言（如Java，拥有很多机制来预防错误的使用）有着非常大的不同，客户端能重写一个对象的属性和方法，为了避免混乱，Python社区选择依靠一组约定，来表明哪些元素不应该被直接访问。
 
 私有属性的主要约定和实现是在所有的“私有”变量前加一个下划线。如果客户端代码打破了这条规则并访问了带有下划线的变量，那么因内部代码的改变而出现的任何问题，都是客户端代码的责任。
 
-### 函数返回值
+## 函数返回值
 
 及早处理错误有助于扁平化代码结构
 
@@ -158,11 +156,11 @@ def compute(a, b, c):
 
 以上代码有三个出口点，过多的出口点会让代码变得难以调试，所以应该尽量减少函数的出口点
 
-### 习语（Idiom）
+## 习语（Idiom）
 
 编程习语，说得简单些，就是写代码的方式，采用习语的Python代码通常被称为 _Pythonic_
 
-#### 解包（Upacking）
+### 解包（Upacking）
 
 如果知道一个列表或者元组的长度，可以将其解包并为它的元素取名。
 
@@ -186,7 +184,7 @@ a, b = b, a
 a, (b, c) = 1, (2, 3)
 ```
 
-#### 忽略变量的记号
+### 忽略变量的记号
 
 如果您需要赋值（比如解包）但不需要这个变量，请使用 `__`:
 
@@ -199,13 +197,13 @@ basename, __, ext = filename.rpartition('.')
 许多Python风格指南建议使用单下划线的 "`_`" 来表示废弃变量。问题是， "`_`" 常用作[`gettext()`](https://docs.python.org/3/library/gettext.html#gettext.gettext)函数的别名，也被用在交互式命令行中记录最后一次操作的值。所以，使用双下划线更清晰，避免和其它地方混淆。
 {% endhint %}
 
-#### 创建N个元素的列表
+### 创建N个元素的列表
 
 ```python
 four_nones = [None] * 4
 ```
 
-#### 创建含N个列表的列表
+### 创建含N个列表的列表
 
 用`*`将会创建含N个指向同一个列表的列表，如果需要N个独立的列表，请使用列表解析
 
@@ -213,7 +211,7 @@ four_nones = [None] * 4
 four_lists = [[] for __ in xrange(4)]
 ```
 
-#### 列表转字符串
+### 列表转字符串
 
 一般在空字符串上使用`str.join()`
 
@@ -222,7 +220,7 @@ letters = ['s', 'p', 'a', 'm']
 word = ''.join(letters)
 ```
 
-#### 在集合中查找元素
+### 在集合中查找元素
 
 一般用`in`关键字
 
@@ -245,7 +243,7 @@ def lookup_list(l):
 
 使用元组或字典是更好的选择，如果集合规模很小，或者不会频繁查找，那么建立哈希带来的开销经常会大于改进搜索的收益。
 
-#### 变量的真值测试
+### 变量的真值测试
 
 ```python
 if attr == True:
@@ -271,7 +269,7 @@ if attr is None:
     print 'attr is None!'
 ```
 
-#### 访问字典元素
+### 访问字典元素
 
 ```python
 d = {'hello': 'world'}
@@ -294,7 +292,7 @@ if 'hello' in d:
     print d['hello']
 ```
 
-#### 修改列表
+### 修改列表
 
 ```python
 # 过滤大于 4 的元素
@@ -329,7 +327,7 @@ filtered_values = filter(lambda i: i != x, sequence)
 filtered_values = itertools.ifilter(lambda i: i != x, sequence)
 ```
 
-#### 修改列表元素的值
+### 修改列表元素的值
 
 ```python
 # 所有的列表成员都加 3
@@ -354,7 +352,7 @@ a = map(lambda i: i + 3, a)
 a = list(map(lambda i: i + 3, a))
 ```
 
-#### 文件读取
+### 文件读取
 
 ```python
 f = open('file.txt')
@@ -371,7 +369,7 @@ with open('file.txt') as f:
         print line
 ```
 
-#### 行的拼接
+### 行的拼接
 
 ```python
 my_very_big_string = """For a long time I used to go to bed early. Sometimes, \
@@ -393,10 +391,13 @@ my_very_big_string = (
 
 from some.deep.module.inside.a.module import (
     a_nice_function, another_nice_function, yet_another_nice_function)
-
 ```
 
-#### **Python**之禅
+### PEP8
+
+[**PEP 8**](https://www.python.org/dev/peps/pep-0008) 是Python的代码风格指南，可以在 [pep8.org](http://pep8.org/) 上获得高质量的、一致的PEP 8版本。让您的 Python 代码遵循 PEP 8 ，这有助于与其他开发人员的协作
+
+### **Python**之禅
 
 ```python
 >>> import this
@@ -442,8 +443,4 @@ Python之禅 by Tim Peters
 ```
 
 Python优雅风格的示例，请见 [Python之禅示例](http://artifex.org/~hblanks/talks/2011/pep20_by_example.pdf)
-
-#### PEP8
-
-[**PEP 8**](https://www.python.org/dev/peps/pep-0008) 是Python的代码风格指南，可以在 [pep8.org](http://pep8.org/) 上获得高质量的、一致的PEP 8版本。让您的 Python 代码遵循 PEP 8 ，这有助于与其他开发人员的协作
 
